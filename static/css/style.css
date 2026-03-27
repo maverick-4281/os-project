@@ -1,16 +1,133 @@
-﻿body {
+body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    color: #1f2937;
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #0b1020;
+    color: #e5e7eb;
 }
 
-header {
-    background: #0f172a;
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.4rem;
+    background: #111827;
+    border-bottom: 1px solid #1f2937;
+}
+
+.nav-brand {
+    font-weight: 700;
+    color: #f9fafb;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.nav-user {
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+.page-shell {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.flash-stack {
+    margin-bottom: 1rem;
+}
+
+.flash {
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+    border: 1px solid transparent;
+}
+
+.flash-success {
+    background: #052e16;
+    border-color: #166534;
+    color: #bbf7d0;
+}
+
+.flash-error {
+    background: #3f0f1b;
+    border-color: #7f1d1d;
+    color: #fecaca;
+}
+
+.auth-card {
+    width: min(420px, 92vw);
+    margin: 4rem auto 0;
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.auth-card h2 {
+    margin: 0 0 0.4rem;
+}
+
+.auth-card p {
+    margin: 0 0 1rem;
+    color: #9ca3af;
+}
+
+.auth-form {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.auth-form label {
+    font-size: 0.9rem;
+    color: #d1d5db;
+}
+
+.auth-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.62rem 0.72rem;
+    border-radius: 8px;
+    border: 1px solid #374151;
+    background: #0b1220;
+    color: #f3f4f6;
+}
+
+.auth-form button {
+    margin-top: 0.6rem;
+    padding: 0.7rem 0.85rem;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
     color: #ffffff;
-    padding: 1rem;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-main {
-    padding: 1.5rem;
+.auth-form button:hover {
+    background: #1d4ed8;
+}
+
+.auth-switch {
+    margin-top: 0.95rem;
+    font-size: 0.95rem;
+}
+
+.auth-switch a {
+    color: #93c5fd;
 }

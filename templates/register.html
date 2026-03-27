@@ -1,6 +1,21 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-<h2>Register</h2>
-<p>Register page placeholder.</p>
+<section class="auth-card">
+    <h2>Register</h2>
+    <p>Create your account to start secure file management.</p>
+    <form method="post" class="auth-form">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+
+        <button type="submit">Register</button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+</section>
 {% endblock %}
