@@ -1,0 +1,4 @@
+﻿Project notes:
+- Implement authentication with bcrypt
+- Add OTP verification using pyotp
+- Integrate file encryption/decryption flow

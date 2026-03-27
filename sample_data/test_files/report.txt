@@ -1,0 +1,4 @@
+﻿Weekly Report
+
+This sample report file is used to test secure read/write and metadata features.
+Threat-detection modules will later scan files like this for suspicious content.

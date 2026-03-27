@@ -1,0 +1,12 @@
+﻿[
+  {
+    "username": "demo_user1",
+    "email": "demo1@example.com",
+    "password": "<HASHED_PASSWORD_PLACEHOLDER>"
+  },
+  {
+    "username": "demo_user2",
+    "email": "demo2@example.com",
+    "password": "<HASHED_PASSWORD_PLACEHOLDER>"
+  }
+]

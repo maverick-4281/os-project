@@ -1,0 +1,6 @@
+﻿flask
+bcrypt
+pyotp
+cryptography
+qrcode[pil]
+pillow

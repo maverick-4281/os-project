@@ -1,0 +1,2 @@
+﻿Hello from Secure File Management System sample data.
+This is a demo text file for testing basic file operations.
