@@ -1,6 +1,24 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-<h2>OTP Verification</h2>
-<p>2FA OTP page placeholder.</p>
+<section class="auth-card">
+    <h2>OTP Verification</h2>
+    {% if first_time_setup %}
+    <p>Scan this QR code in Google Authenticator or Authy, then enter the 6-digit code.</p>
+    {% else %}
+    <p>Enter the 6-digit code from your authenticator app.</p>
+    {% endif %}
+
+    {% if qr_code_url %}
+    <div class="qr-wrap">
+        <img src="{{ qr_code_url }}" alt="2FA QR Code" class="qr-image">
+    </div>
+    {% endif %}
+
+    <form method="post" class="auth-form">
+        <label for="otp_code">OTP Code</label>
+        <input id="otp_code" name="otp_code" type="text" maxlength="6" pattern="[0-9]{6}" required>
+        <button type="submit">Verify OTP</button>
+    </form>
+</section>
 {% endblock %}

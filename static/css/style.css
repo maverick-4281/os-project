@@ -131,3 +131,18 @@ body {
 .auth-switch a {
     color: #93c5fd;
 }
+
+.qr-wrap {
+    margin: 0.8rem 0 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.qr-image {
+    width: 190px;
+    height: 190px;
+    border-radius: 8px;
+    border: 1px solid #374151;
+    background: #ffffff;
+    padding: 0.4rem;
+}
