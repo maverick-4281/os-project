@@ -215,3 +215,65 @@ body {
     padding: 0.85rem;
     color: #e5e7eb;
 }
+/* Dashboard */
+.dashboard { padding: 2rem; max-width: 1100px; margin: 0 auto; }
+.dashboard h2 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+.subtitle { color: #888; margin-bottom: 2rem; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #1a1a24;
+  border: 1px solid #2a2a3a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.stat-card.danger { border-color: #f44336; }
+.stat-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.stat-number { font-size: 2.5rem; font-weight: bold; color: #6c63ff; }
+.stat-card.danger .stat-number { color: #f44336; }
+.stat-label { color: #888; font-size: 0.9rem; margin-top: 0.3rem; }
+
+.recent-activity, .quick-links { margin-bottom: 2rem; }
+.recent-activity h3, .quick-links h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #2a2a3a;
+  padding-bottom: 0.5rem;
+}
+
+.log-list { list-style: none; padding: 0; }
+.log-list li {
+  background: #1a1a24;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.4rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.action-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  padding: 0.7rem 1.4rem;
+  background: #6c63ff;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover { background: #5a52d5; }
+.btn-danger { background: #f44336; }
+.btn-danger:hover { background: #d32f2f; }
+.btn-secondary { background: #333; }
+.btn-secondary:hover { background: #444; }
+
+.empty { color: #666; font-style: italic; }

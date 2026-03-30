@@ -1,6 +1,53 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
-<h2>Dashboard</h2>
-<p>Dashboard page placeholder.</p>
+<div class="dashboard">
+  <h2>Welcome back, {{ username }} 👋</h2>
+  <p class="subtitle">Here's your security overview</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📁</div>
+      <div class="stat-number">{{ stats.total_files }}</div>
+      <div class="stat-label">Total Files</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🔗</div>
+      <div class="stat-number">{{ stats.shared_files }}</div>
+      <div class="stat-label">Shared Files</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🔒</div>
+      <div class="stat-number">{{ stats.encrypted_files }}</div>
+      <div class="stat-label">Encrypted Files</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-number">{{ stats.threats_detected }}</div>
+      <div class="stat-label">Threats Detected</div>
+    </div>
+  </div>
+
+  <div class="recent-activity">
+    <h3>Recent Activity</h3>
+    {% if recent_logs %}
+      <ul class="log-list">
+        {% for log in recent_logs %}
+          <li>{{ log }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="empty">No recent activity yet.</p>
+    {% endif %}
+  </div>
+
+  <div class="quick-links">
+    <h3>Quick Actions</h3>
+    <div class="action-buttons">
+      <a href="/files" class="btn">📁 Manage Files</a>
+      <a href="/threats" class="btn btn-danger">🛡️ Threat Detection</a>
+      <a href="/files/logs" class="btn btn-secondary">📋 View Logs</a>
+    </div>
+  </div>
+</div>
 {% endblock %}
