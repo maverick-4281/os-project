@@ -1,6 +1,125 @@
 ﻿{% extends "base.html" %}
 
 {% block content %}
-<h2>Threats</h2>
-<p>Threat detection page placeholder.</p>
+<div class="dashboard">
+  <h2>🛡️ Threat Detection</h2>
+  <p class="subtitle">Scan inputs and files for security threats</p>
+
+  <div class="two-col">
+
+    <!-- Input Scanner -->
+    <div class="card">
+      <h3>Input Scanner</h3>
+      <p class="card-desc">Test any text for buffer overflow, SQL injection, XSS, and path traversal.</p>
+      <form method="POST" action="/threats/scan-input">
+        <textarea name="user_input" rows="6" placeholder="Paste suspicious input here..." class="full-input"></textarea>
+        <button type="submit" class="btn btn-danger" style="margin-top:0.8rem">🔍 Scan Input</button>
+      </form>
+
+      {% if input_result %}
+      <div class="result-box">
+        <div class="threat-badge {{ input_result.threat_level | lower }}">
+          {{ input_result.threat_level }}
+        </div>
+        <p><strong>Input Length:</strong> {{ input_result.input_length }} bytes</p>
+        <p><strong>Canary:</strong> {{ input_result.canary.message }}</p>
+
+        {% if input_result.findings %}
+        <h4>Findings:</h4>
+        <ul class="findings-list">
+          {% for f in input_result.findings %}
+          <li class="finding {{ f.severity }}">
+            <strong>{{ f.type | upper }}</strong> — {{ f.detail }}
+            <span class="severity-tag {{ f.severity }}">{{ f.severity }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="safe-msg">✅ No threats found in input.</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- File Scanner -->
+    <div class="card">
+      <h3>File Scanner</h3>
+      <p class="card-desc">Scan your uploaded files for malware signatures.</p>
+
+      {% if user_files %}
+        {% for filename in user_files %}
+        <form method="POST" action="/threats/scan-file/{{ filename }}" style="margin-bottom:0.6rem">
+          <div class="file-scan-row">
+            <span>📄 {{ filename }}</span>
+            <button type="submit" class="btn btn-sm">Scan</button>
+          </div>
+        </form>
+        {% endfor %}
+      {% else %}
+        <p class="empty">No files uploaded yet. <a href="/files">Upload a file</a> first.</p>
+      {% endif %}
+
+      {% if scan_result %}
+      <div class="result-box">
+        <div class="threat-badge {{ scan_result.threat_level | lower }}">
+          {{ scan_result.threat_level }}
+        </div>
+        <p><strong>File:</strong> {{ scan_result.file }}</p>
+        <p><strong>SHA256:</strong> <code>{{ scan_result.hash[:32] }}...</code></p>
+        <p><strong>Status:</strong> {{ scan_result.status }}</p>
+        <p><strong>Scan Time:</strong> {{ scan_result.scan_time }}</p>
+
+        {% if scan_result.threats_found %}
+        <h4>Threats Found:</h4>
+        <ul class="findings-list">
+          {% for t in scan_result.threats_found %}
+          <li class="finding {{ t.severity }}">
+            <strong>{{ t.name | upper }}</strong> — Line {{ t.line_number }}
+            <span class="severity-tag {{ t.severity }}">{{ t.severity }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="safe-msg">✅ File is clean. No malware detected.</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- Threat Logs -->
+  <div class="card" style="margin-top:1.5rem">
+    <h3>📋 Threat Logs</h3>
+    {% if threat_logs %}
+    <table class="log-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>User</th>
+          <th>Source</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in threat_logs %}
+        <tr>
+          <td>{{ log.timestamp }}</td>
+          <td>{{ log.username }}</td>
+          <td>{{ log.report.source }}</td>
+          <td>
+            <span class="threat-badge-sm {{ log.report.result.threat_level | lower }}">
+              {{ log.report.result.threat_level }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No threats logged yet.</p>
+    {% endif %}
+  </div>
+
+</div>
 {% endblock %}
