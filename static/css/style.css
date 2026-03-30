@@ -108,6 +108,17 @@ body {
     color: #f3f4f6;
 }
 
+.auth-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.62rem 0.72rem;
+    border-radius: 8px;
+    border: 1px solid #374151;
+    background: #0b1220;
+    color: #f3f4f6;
+    resize: vertical;
+}
+
 .auth-form button {
     margin-top: 0.6rem;
     padding: 0.7rem 0.85rem;
@@ -145,4 +156,62 @@ body {
     border: 1px solid #374151;
     background: #ffffff;
     padding: 0.4rem;
+}
+
+.panel {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.panel h2,
+.panel h3 {
+    margin-top: 0;
+}
+
+.files-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.files-table th,
+.files-table td {
+    border-bottom: 1px solid #1f2937;
+    padding: 0.6rem 0.5rem;
+    text-align: left;
+}
+
+.action-cell {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.action-cell form {
+    margin: 0;
+}
+
+.btn-link {
+    display: inline-block;
+    padding: 0.45rem 0.65rem;
+    border-radius: 8px;
+    text-decoration: none;
+    background: #1e3a8a;
+    color: #ffffff;
+}
+
+.btn-link:hover {
+    background: #1d4ed8;
+}
+
+.file-preview {
+    white-space: pre-wrap;
+    background: #0b1220;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 0.85rem;
+    color: #e5e7eb;
 }

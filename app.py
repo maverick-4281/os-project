@@ -4,6 +4,7 @@ from functools import wraps
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 
 from modules.auth import get_user, login_user, register_user, setup_2fa, verify_otp
+from modules.file_ops import decrypt_file, encrypt_file, get_file_metadata, read_file, write_file
 
 
 app = Flask(__name__)
@@ -156,7 +157,91 @@ def dashboard():
 @app.route("/files")
 @login_required
 def files():
-    return render_template("files.html")
+    username = session.get("username")
+    user_data = get_user(username) or {}
+    files_metadata = []
+    for entry in user_data.get("files", []):
+        metadata = get_file_metadata(username, entry.get("filename", ""))
+        if metadata:
+            files_metadata.append(metadata)
+    return render_template("files.html", files=files_metadata, file_content=None, active_file=None, view_mode=None)
+
+
+@app.route("/files/upload", methods=["POST"])
+@login_required
+def upload_file():
+    username = session.get("username")
+    filename = request.form.get("filename", "").strip()
+    content = request.form.get("content", "")
+
+    if not filename:
+        flash("Filename is required.", "error")
+        return redirect(url_for("files"))
+
+    status, message = write_file(username, filename, content)
+    flash(message, "success" if status else "error")
+    return redirect(url_for("files"))
+
+
+@app.route("/files/read/<filename>")
+@login_required
+def read_user_file(filename):
+    username = session.get("username")
+    content, error = read_file(username, filename)
+
+    user_data = get_user(username) or {}
+    files_metadata = []
+    for entry in user_data.get("files", []):
+        metadata = get_file_metadata(username, entry.get("filename", ""))
+        if metadata:
+            files_metadata.append(metadata)
+
+    if error:
+        flash(error, "error")
+        return render_template("files.html", files=files_metadata, file_content=None, active_file=None, view_mode=None)
+
+    return render_template(
+        "files.html",
+        files=files_metadata,
+        file_content=content,
+        active_file=filename,
+        view_mode="read",
+    )
+
+
+@app.route("/files/encrypt/<filename>", methods=["POST"])
+@login_required
+def encrypt_user_file(filename):
+    username = session.get("username")
+    status, message = encrypt_file(username, filename)
+    flash(message, "success" if status else "error")
+    return redirect(url_for("files"))
+
+
+@app.route("/files/decrypt/<filename>")
+@login_required
+def decrypt_user_file(filename):
+    username = session.get("username")
+    plaintext, error = decrypt_file(username, filename)
+
+    user_data = get_user(username) or {}
+    files_metadata = []
+    for entry in user_data.get("files", []):
+        metadata = get_file_metadata(username, entry.get("filename", ""))
+        if metadata:
+            files_metadata.append(metadata)
+
+    if error:
+        flash(error, "error")
+        return render_template("files.html", files=files_metadata, file_content=None, active_file=None, view_mode=None)
+
+    return render_template(
+        "files.html",
+        files=files_metadata,
+        file_content=plaintext,
+        active_file=filename,
+        view_mode="decrypt",
+    )
 
 
 @app.route("/threats")

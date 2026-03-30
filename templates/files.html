@@ -1,6 +1,59 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
-<h2>Files</h2>
-<p>File management page placeholder.</p>
+<section class="panel">
+    <h2>File Operations</h2>
+    <p>Create, view, encrypt, and decrypt your files.</p>
+
+    <form method="post" action="{{ url_for('upload_file') }}" class="auth-form">
+        <label for="filename">Filename</label>
+        <input id="filename" name="filename" type="text" placeholder="example.txt" required>
+
+        <label for="content">Content</label>
+        <textarea id="content" name="content" rows="6" placeholder="Type file content here..."></textarea>
+
+        <button type="submit">Save File</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h3>Your Files</h3>
+    {% if files %}
+    <table class="files-table">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Size (bytes)</th>
+                <th>Encrypted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in files %}
+            <tr>
+                <td>{{ item.filename }}</td>
+                <td>{{ item.size }}</td>
+                <td>{{ "Yes" if item.is_encrypted else "No" }}</td>
+                <td class="action-cell">
+                    <a class="btn-link" href="{{ url_for('read_user_file', filename=item.filename) }}">View</a>
+                    <form method="post" action="{{ url_for('encrypt_user_file', filename=item.filename) }}">
+                        <button type="submit" {% if item.is_encrypted %}disabled{% endif %}>Encrypt</button>
+                    </form>
+                    <a class="btn-link" href="{{ url_for('decrypt_user_file', filename=item.filename) }}">Decrypt</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No files found. Create one using the form above.</p>
+    {% endif %}
+</section>
+
+{% if file_content is not none and active_file %}
+<section class="panel">
+    <h3>{{ "Decrypted View" if view_mode == "decrypt" else "File View" }}: {{ active_file }}</h3>
+    <pre class="file-preview">{{ file_content }}</pre>
+</section>
+{% endif %}
 {% endblock %}

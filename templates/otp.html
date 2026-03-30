@@ -15,7 +15,7 @@
     </div>
     {% endif %}
 
-    <form method="post" class="auth-form">
+    <form method="POST" action="/otp-verify" class="auth-form">
         <label for="otp_code">OTP Code</label>
         <input id="otp_code" name="otp_code" type="text" maxlength="6" pattern="[0-9]{6}" required>
         <button type="submit">Verify OTP</button>
