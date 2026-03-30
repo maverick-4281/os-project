@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+  <h2>📋 Access Logs</h2>
+  <p class="subtitle">All file operations performed by {{ username }}</p>
+
+  <div class="card">
+    {% if logs %}
+    <ul class="log-list">
+      {% for log in logs %}
+      <li>{{ log }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">No activity logs found.</p>
+    {% endif %}
+  </div>
+
+  <a href="/dashboard" class="btn" style="margin-top:1rem;display:inline-block">← Back to Dashboard</a>
+</div>
+{% endblock %}

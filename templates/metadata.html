@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+  <h2>📄 File Metadata</h2>
+  <p class="subtitle">Detailed information about {{ filename }}</p>
+
+  <div class="card">
+    <table class="log-table">
+      <tr><th>Filename</th><td>{{ metadata.filename }}</td></tr>
+      <tr><th>Owner</th><td>{{ metadata.owner }}</td></tr>
+      <tr><th>Size</th><td>{{ metadata.size }} bytes</td></tr>
+      <tr><th>Created</th><td>{{ metadata.created_at }}</td></tr>
+      <tr><th>Modified</th><td>{{ metadata.modified_at }}</td></tr>
+      <tr><th>Encrypted</th><td>{{ "Yes 🔒" if metadata.is_encrypted else "No 🔓" }}</td></tr>
+      <tr><th>Shared With</th><td>
+        {% if metadata.shared_with %}
+          {{ metadata.shared_with | join(", ") }}
+        {% else %}
+          Not shared
+        {% endif %}
+      </td></tr>
+      <tr><th>OS Permissions</th><td><code>{{ metadata.mode if metadata.mode else "N/A" }}</code></td></tr>
+    </table>
+  </div>
+
+  <a href="/files" class="btn" style="margin-top:1rem;display:inline-block">← Back to Files</a>
+</div>
+{% endblock %}
